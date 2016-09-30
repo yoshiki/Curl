@@ -15,12 +15,16 @@ public struct Curl {
     public var timeout = 3
     public var verbose = false
     
-    public func get(method: Method, url: String, headers: Headers) -> Data? {
+    public func get(url: String, headers: Headers) -> Data? {
         return sendRequest(method: .GET, url: url, headers: headers)
     }
     
-    public func post(method: Method, url: String, headers: Headers, body: Data) -> Data? {
-        return sendRequest(method: .POST, url: url, headers: headers, body: body)
+    public func post(url: String, headers: Headers, body: Data?) -> Data? {
+        if let body = body {
+            return sendRequest(method: .POST, url: url, headers: headers, body: body)
+        } else {
+            return sendRequest(method: .POST, url: url, headers: headers)
+        }
     }
     
     private func sendRequest(method: Method, url: String, headers: Headers, body: Data = Data()) -> Data? {
