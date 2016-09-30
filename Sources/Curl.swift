@@ -15,6 +15,8 @@ public struct Curl {
     public var timeout = 3
     public var verbose = false
     
+    public init() {}
+
     public func get(url: String, headers: Headers) -> Data? {
         return sendRequest(method: .GET, url: url, headers: headers)
     }
