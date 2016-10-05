@@ -81,6 +81,7 @@ public struct Curl {
         // set write func
         var writeStorage = WriteStorage()
         curlHelperSetOptWriteFunc(handle, &writeStorage) { (ptr, size, nMemb, privateData) -> Int in
+            guard let ptr = ptr else { return 0 }
             let storage = UnsafeRawPointer(privateData)?.assumingMemoryBound(to: WriteStorage.self)
             let realsize = size * nMemb
             
